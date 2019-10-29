@@ -16,9 +16,16 @@ def get_json():
 			   'Authorization' : 'jwt ' + access_token,
 			   "Content-Type" : "application/json"}
 	r = requests.get(urlatms, headers=headers)
-	return r.json()
+	j = r.json()
+	jsonToPython = json.dumps(j)
+	return jsonToPython
 
+v= get_json()
 
-v = get_json()
+datos = json.loads(v)
 
-print(v)
+data = datos["data"]
+
+brand = data[0]
+
+print(brand.keys())
