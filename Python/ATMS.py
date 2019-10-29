@@ -20,12 +20,24 @@ def get_json():
 	jsonToPython = json.dumps(j)
 	return jsonToPython
 
-v= get_json()
 
-datos = json.loads(v)
+def locacion (j):
+	datos = json.loads(j)
+	num = datos["data"][0]["Brand"][0]["ATM"]
+	print(len(num))
+	loc = []
+	serv = []
+	for i in range(0,len(num)):
+		data = datos["data"][0]["Brand"][0]["ATM"][i]["Location"]
+		data2 = datos["data"][0]["Brand"][0]["ATM"][i]["ATMServices"]
+		loc.append(data)
+		serv.append(data2)
+	dicjsn = json.dumps(loc)
+	serjsn = json.dumps(serv)
+	return (dicjsn,serjsn)
 
-data = datos["data"]
+gj = get_json()
 
-brand = data[0]
+nuevo = locacion(gj)
 
-print(brand.keys())
+print(nuevo)
