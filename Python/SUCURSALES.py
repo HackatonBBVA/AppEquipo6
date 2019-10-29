@@ -17,9 +17,31 @@ def get_json():
 			   'Authorization' : 'jwt ' + access_token,
 			   "Content-Type" : "application/json"}
 	r = requests.get(urlbranches, headers=headers)
-	return r.json()
+	j = r.json()
+	jsonToPython = json.dumps(j)
+	return jsonToPython
 
 
 v = get_json()
 
-print(v)
+def info (j):
+	datos = json.loads(j)
+	num = len(datos["data"][0]["Brand"][0]["Branch"])
+	loc = []
+	serv = []
+	for i in range(0, num):
+		datos1 = datos["data"][0]["Brand"][0]["Branch"][i]["Name"]
+		loc.append(datos1)
+		datos2 = datos["data"][0]["Brand"][0]["Branch"][i]["CustomerSegment"]
+		loc.append(datos2)
+		datos3 = datos["data"][0]["Brand"][0]["Branch"][i]["PostalAddress"]
+		loc.append(datos3)
+		datos4 = datos["data"][0]["Brand"][0]["Branch"][i]["Availability"]
+		loc.append(datos4)
+		datos5 = datos["data"][0]["Brand"][0]["Branch"][i]["ContactInfo"]
+		loc.append(datos5)
+		serv.append(loc)
+	dicjsn = json.dumps(serv)
+	return dicjsn
+
+print(info(v))
